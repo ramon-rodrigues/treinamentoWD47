@@ -22,16 +22,16 @@
             //     Não digite vários nada
             // </div>
             // div
-            const $msgErro = document.createElement('div')
+            const $msgErro = $('<div>')
             // classe
             $msgErro.addClass('formNovoCartao-msg')
             // texto 
-            $msgErro.textContent = 'Não digite vários nada'
+            $msgErro.text('Não digite vários nada')
             // Mandar o elemento para a página
-            const $btnSalvar = formulario.querySelector('.formNovoCartao-salvar')
-            $btnSalvar.insertAdjacentElement('beforebegin', $msgErro)
+            const $btnSalvar = formulario.find('.formNovoCartao-salvar')
+            $btnSalvar.before( $msgErro)
 
-            $msgErro.addEventListener('animationend', function() {
+            $msgErro.on('animationend', function() {
                 $msgErro.remove()
             })
 
