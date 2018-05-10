@@ -4,9 +4,11 @@
 
     let contador = document.querySelectorAll('.cartao').length
     console.log(contador)
-    const formulario = document.querySelector('.formNovoCartao')
+    // const formulario = document.querySelector('.formNovoCartao')7
+    const formulario = $('.formNovoCartao')
 
-    formulario.addEventListener('submit', function(event) {
+    //formulario.addEventListener('submit', function(event) {
+    formulario.on('submit', function(event) {
         event.preventDefault()
 
         // Pega o campo
@@ -22,7 +24,7 @@
             // div
             const $msgErro = document.createElement('div')
             // classe
-            $msgErro.classList.add('formNovoCartao-msg')
+            $msgErro.addClass('formNovoCartao-msg')
             // texto 
             $msgErro.textContent = 'Não digite vários nada'
             // Mandar o elemento para a página
@@ -39,11 +41,10 @@
             // Criar o HTML do elemento
             // const cartao = 
 
-            const mural = document.querySelector('.mural')
+            // const mural = document.querySelector('.mural')
+            const mural = $('.mural')
             // Criar um Componente
-            const tplCartao = document.createElement('tpl')
-            // Incubacão de HTML
-            tplCartao.innerHTML = `
+            const cartao = $(`
             <article id="cartao_${contador}" class="cartao" tabindex="0">
                 <div class="opcoesDoCartao">
                     <button class="opcoesDoCartao-remove opcoesDoCartao-opcao" tabindex="0">
@@ -72,49 +73,52 @@
                 </div>
                 <p class="cartao-conteudo" contenteditable tabindex="0">${conteudoDoCartao}</p>
             </article>
-            ` // Template String `` != ''
+            `) // Template String `` != ''
 
 
-            const cartao = tplCartao.querySelector('.cartao') 
+            // const cartao = tplCartao.querySelector('.cartao') 
             
             // Copia e cola todos os eventos do cartão :) dp arquivo cartao.js
-            cartao.addEventListener('focusin', function() {
+            cartao.on('focusin', function() {
                 console.log('Focou dentro do cartao')
-                cartao.classList.add('cartao--focado')
+                cartao.addClass('cartao--focado')
             })
-            cartao.addEventListener('focusout', function() {
-                cartao.classList.remove('cartao--focado')
+            cartao.on('focusout', function() {
+                cartao.removeClass('cartao--focado')
             })
     
-            cartao.addEventListener('change', function(event) {
-                const elementoQueFoiClicado = event.target
-                console.log('change')
-                if(elementoQueFoiClicado.classList.contains('opcoesDoCartao-radioTipo')) {
+            cartao.on('change', function(event) {
+                const elementoQueFoiClicado = $(event.target)
+                
+                // console.log('Vainnn change - ' + elementoQueFoiClicado.hasClass('opcoesDoCartao-radioTipo') + ' - ' + elementoQueFoiClicado.val())
+
+                if(elementoQueFoiClicado.hasClass('opcoesDoCartao-radioTipo')) {
                     // console.log('Foi clicado o elemento que queremos', elementoQueFoiClicado)
-                    const corNovaDoCartao = elementoQueFoiClicado.value
-                    cartao.style.backgroundColor = corNovaDoCartao
+                    const corNovaDoCartao = elementoQueFoiClicado.val()
+                    // cartao.style.backgroundColor = corNovaDoCartao
+                    cartao.css('background-color', corNovaDoCartao)
                 }
             })
     
-            cartao.addEventListener('keypress', function(propriedadesDoEvento) {
-                const isOpcoesDoCartao = event.target.classList.contains('opcoesDoCartao-opcao')
+            cartao.on('keypress', function(propriedadesDoEvento) {
+                const isOpcoesDoCartao = $(event.target).hasClass('opcoesDoCartao-opcao')
     
                 if(isOpcoesDoCartao && (propriedadesDoEvento.key == 'Enter' || propriedadesDoEvento.key == ' ') )  {
                     console.log('Nao deve ativar fora das bolinhas')
                     // console.log('Apertaram ua tecla', propriedadesDoEvento)
-                    event.target.click()
+                    $(event.target).click()
                     // Disparar os bagulhos
                 }
             })
     
             // # Desafio
-            cartao.addEventListener('click', function(event) {
+            cartao.on('click', function(event) {
                 console.log('Dentro do click')
-                const isBtnRemove = event.target.classList.contains('opcoesDoCartao-remove')
+                const isBtnRemove = $(event.target).hasClass('opcoesDoCartao-remove')
                 
                 if(isBtnRemove) {
-                    cartao.classList.add('cartao--some')
-                    cartao.addEventListener('transitionend', function () {
+                    cartao.addClass('cartao--some')
+                    cartao.on('transitionend', function () {
                         cartao.remove()
                         console.log('Cartao removeu', cartao)
                     })    
@@ -122,19 +126,17 @@
     
             })
 
-            mural.insertAdjacentElement('afterbegin', cartao)
+            //mural.insertAdjacentElement('afterbegin', cartao)
+            mural.prepend(cartao);
+
 
             $campoDoFormulario.value = ''
-
-
-            
-
 
         }
 
 
     })
 
-
-    formulario.classList.remove('no-js')
+    // formulario.classList.remove('no-js')
+    formulario.removeClass('no-js')
 })()
