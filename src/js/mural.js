@@ -158,6 +158,12 @@ function adicionaCartaozinhoNoMural(cartaoObj) {
             propriedadesDoEvento.target.click()
             // Disparar os bagulhos
         }
+
+        const isCartaoConteudo = propriedadesDoEvento.target.classList.contains('cartao-conteudo')
+
+        if(isCartaoConteudo){
+            window.mural.sincronizar()
+        }
     })
 
     // # Desafio

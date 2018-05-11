@@ -10,9 +10,7 @@
 
         window.mural.sincronizar();
         
-    })
-
-
+    })  
 
     $btnSync.removeClass('no-js')
 })()
