@@ -2,6 +2,20 @@
 ;(function() {
     'use strict';
 
+
+
+    $.ajax({
+        url:"http://ceep.herokuapp.com/cartoes/carregar?usuario=ramonCosta",
+        dataType: "jsonp",
+        success: function(json){
+            json.cartoes.forEach(function (cartaoDoValorAtual){
+                adicionaCartaozinhoNoMural(cartaoDoValorAtual)
+            })
+        },
+        error:function(){
+            alert("Error");
+        }
+    });
 let contador = document.querySelectorAll('.cartao').length
 
 

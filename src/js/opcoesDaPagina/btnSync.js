@@ -7,6 +7,13 @@
     const cartoes = []
 
     $btnSync.on('click', function(){
+
+       sincronizar();
+        
+    })
+
+
+    function sincronizar(){
         $('.cartao').each(function(indice){
             const cartaoJuqueri = $(this)
             const cartaoObj = {
@@ -22,6 +29,18 @@
             cartoes : cartoes 
         }
         
+        // const infosDoMural = {
+        //     usuario : 'ramonCosta',
+        //     cartoes : Array.from($('cartao')).map(function(elementoAtual){
+        //         return {
+        //             conteudo : elementoAtual.querySelector('p').textContent,
+        //             cor : elementoAtual.style.backgroundColor
+        //         }
+        //     })
+        // }
+        
+        console.log(infosDoMural)
+
         const xhr = new XMLHttpRequest()
         xhr.open('POST','http://ceep.herokuapp.com/cartoes/salvar')
         xhr.setRequestHeader('Content-Type', 'application/json')
@@ -38,11 +57,12 @@
 
         })
 
-
         xhr.addEventListener('error', function(){
             $btnSync.addClass('botaoSync--deuRuim')
-            $btnSync.removeClass('botaoSync--esperando')
+            $btnSync.removeClass('botaoSync--esperando');
         })
-    })
+
+    }
+
     $btnSync.removeClass('no-js')
 })()
