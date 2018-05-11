@@ -4,11 +4,11 @@
     
     const $btnSync = $('#btnSync')
     $btnSync.removeClass('botaoSync--sincronizado')
-    const cartoes = []
+    
 
     $btnSync.on('click', function(){
 
-       sincronizar();
+        window.mural.sincronizar();
         
     })
 

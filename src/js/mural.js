@@ -20,6 +20,8 @@
 
     
     function sincronizar(){
+        const $btnSync = $('#btnSync')
+        const cartoes = []
         $('.cartao').each(function(indice){
             const cartaoJuqueri = $(this)
             const cartaoObj = {
@@ -179,5 +181,5 @@ function adicionaCartaozinhoNoMural(cartaoObj) {
 // Tornando coisas Globais
 window.mural = window.mural || {}
 window.mural.adicionaCartaozinhoNoMural = adicionaCartaozinhoNoMural
-
+window.mural.sincronizar = sincronizar
 })()
