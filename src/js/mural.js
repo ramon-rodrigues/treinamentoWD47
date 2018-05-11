@@ -68,7 +68,7 @@
             $btnSync.removeClass('botaoSync--esperando');
         })
 
-    }
+    }   
 
 let contador = document.querySelectorAll('.cartao').length
 
